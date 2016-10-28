@@ -9,6 +9,7 @@ final int LANDING_PLATFORM_HEIGHT = 60;
 final int LANDING_PLATFORM_WIDTH = 100;
 
 float platformLeft = 0;
+int platformHeight = 0;
 
 Ship ship;
 
@@ -17,9 +18,10 @@ boolean[] keys = new boolean[4];
 void setup() {
   size(1000, 800);
   
-  ship = new Ship(new PVector(0, -(height / 2)), 10);
+  ship = new Ship(new PVector(width / 2, -20), 10);
   
   platformLeft = random(0, width - LANDING_PLATFORM_WIDTH);
+  platformHeight = height - (2 * MOON_HEIGHT) + 10;
 }
 
 void draw() {
@@ -38,12 +40,10 @@ void view() {
   background(0);
   
   fill(128, 128, 128);
-  rect(platformLeft, height - (2 * MOON_HEIGHT) + 10, LANDING_PLATFORM_WIDTH, LANDING_PLATFORM_HEIGHT);
+  rect(platformLeft, platformHeight, LANDING_PLATFORM_WIDTH, LANDING_PLATFORM_HEIGHT);
   
   fill(255);
   arc(width / 2, height, width, MOON_HEIGHT, PI, PI * 2, OPEN);
-
-  translate(width / 2, height / 2);
   
   ship.draw();
 }
@@ -116,9 +116,9 @@ class Ship {
    * display the ship on screen
    */
   void draw() {
-    if (pt[1].y >= ((height / 2 - MOON_HEIGHT) - LANDING_PLATFORM_HEIGHT) || pt[2].y >= ((height / 2 - MOON_HEIGHT) - LANDING_PLATFORM_HEIGHT)) {
+    if (didLand()) {
       fill(255);
-      text("You win!", 10, 30);
+      text("You win!", width / 2, height / 2);
     } else {
       strokeWeight(1); stroke(255); fill(0);
       triangle(pt[0].x, pt[0].y, pt[1].x, pt[1].y, pt[2].x, pt[2].y);
@@ -143,5 +143,10 @@ class Ship {
   
   void thrust() {
     if (speed < 1) speed += 0.1;
+  }
+  
+  boolean didLand() {
+    return (pt[1].y >= platformHeight || pt[2].y >= platformHeight) &&
+      (pt[1].x >= platformLeft && pt[2].x <= platformLeft + LANDING_PLATFORM_WIDTH);
   }
 }
