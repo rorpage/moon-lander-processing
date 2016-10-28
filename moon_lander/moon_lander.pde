@@ -35,6 +35,15 @@ void model() {
   ship.move();
 }
 
+void updateStats() {
+  stroke(255);
+  fill(0);
+  rect(15, 5, 100, 40);
+  fill(255);
+  text("Speed: " + ship.speed, 20, 20);
+  text("Fuel: " + ship.fuel, 20, 40);
+}
+
 // drawing stuff
 void view() {
   background(0);
@@ -47,6 +56,8 @@ void view() {
   arc(width / 2, height, width, MOON_HEIGHT, PI, PI * 2, OPEN);
   
   ship.draw();
+
+  updateStats();
 }
 
 void keyPressed() {
@@ -99,7 +110,8 @@ class Ship {
   PVector pos;   // position
   float rot;     // rotation angle
   PVector dis;   // displacement
-  float speed;   // speed
+  float speed;
+  float fuel;
   
   int siz;       // size
   PVector[] pt;  // shape
@@ -107,6 +119,7 @@ class Ship {
   Ship(PVector pos, int siz) {
     this.pos = pos;
     this.siz = siz;
+    this.fuel = 100;
     dis = new PVector(0, 0);
     // the ship has its nose upwards
     rot = -PI/2;
@@ -130,25 +143,35 @@ class Ship {
    * display the ship on screen
    */
   void draw() {
-    if (didLand()) {
+    if (outOfFuel()) {
+      fuel = 0;
+      fill(255);
+      text("You ran out of fuel.", width / 2, height / 2);
+    } else if (didLand()) {
       fill(255);
       text("That's one small step for man, and one giant leap for mankind...", width / 2, height / 2);
     } else if (didCrash()) {
       fill(255);
-      text("Oops", width / 2, height / 2);
+      text("Oops! You crashed!", width / 2, height / 2);
     } else {
       strokeWeight(1); stroke(255); fill(0);
       triangle(pt[0].x, pt[0].y, pt[1].x, pt[1].y, pt[2].x, pt[2].y);
     }
   }
-  
+
   void move() {
     // friction
     dis.mult(AIR);
+
     // gravity
     dis.y += GRAVITY;
+
     // propulsion
-    if (keys[0]) dis.add(new PVector(PROP*cos(rot), PROP*sin(rot)));
+    if (keys[0]) {
+      dis.add(new PVector(PROP*cos(rot), PROP*sin(rot)));
+      fuel -= 0.1;
+    }
+
     // deplacement
     pos.add(dis);
     updatePoints();
@@ -161,13 +184,21 @@ class Ship {
   void thrust() {
     if (speed < 1) speed += 0.1;
   }
-  
+
+  boolean outOfFuel() {
+    return fuel <= 0;
+  }
+
   boolean didLand() {
     return (pt[1].y >= platformHeight || pt[2].y >= platformHeight) &&
       (pt[1].x >= platformLeft && pt[2].x <= platformLeft + LANDING_PLATFORM_WIDTH);
   }
 
   boolean didCrash() {
+    if (didLand() && speed > 0.5) {
+      return true;
+    }
+
     return false;
   }
 }
