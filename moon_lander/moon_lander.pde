@@ -39,7 +39,8 @@ void model() {
 void view() {
   background(0);
   
-  fill(128, 128, 128);
+  stroke(128);
+  fill(128);
   rect(platformLeft, platformHeight, LANDING_PLATFORM_WIDTH, LANDING_PLATFORM_HEIGHT);
   
   fill(255);
