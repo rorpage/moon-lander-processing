@@ -59,6 +59,11 @@ void keyPressed() {
       case RIGHT:
         keys[2] = true; break;
     }
+  } else {
+    switch (key) {
+      case 'r':
+        keys[3] = true; break;
+    }
   }
 }
 
@@ -71,6 +76,13 @@ void keyReleased() {
         keys[1] = false; break;
       case RIGHT:
         keys[2] = false; break;
+      case 'r':
+        keys[3] = false; break;
+    }
+  } else {
+    switch (key) {
+      case 'r':
+        keys[3] = false; break;
     }
   }
 }
@@ -79,6 +91,7 @@ void handleKeys() {
   if (keys[0]) ship.thrust();            // THRUST
   if (keys[1]) ship.turns(-TURN_VALUE);  // LEFT
   if (keys[2]) ship.turns(TURN_VALUE);   // RIGHT
+  if (keys[3]) setup();                  // r
 }
 
 class Ship {
@@ -119,7 +132,10 @@ class Ship {
   void draw() {
     if (didLand()) {
       fill(255);
-      text("You win!", width / 2, height / 2);
+      text("That's one small step for man, and one giant leap for mankind...", width / 2, height / 2);
+    } else if (didCrash()) {
+      fill(255);
+      text("Oops", width / 2, height / 2);
     } else {
       strokeWeight(1); stroke(255); fill(0);
       triangle(pt[0].x, pt[0].y, pt[1].x, pt[1].y, pt[2].x, pt[2].y);
@@ -149,5 +165,9 @@ class Ship {
   boolean didLand() {
     return (pt[1].y >= platformHeight || pt[2].y >= platformHeight) &&
       (pt[1].x >= platformLeft && pt[2].x <= platformLeft + LANDING_PLATFORM_WIDTH);
+  }
+
+  boolean didCrash() {
+    return false;
   }
 }
