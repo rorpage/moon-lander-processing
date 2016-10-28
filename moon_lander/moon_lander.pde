@@ -38,7 +38,7 @@ void model() {
 void updateStats() {
   stroke(255);
   fill(0);
-  rect(15, 5, 100, 40);
+  rect(15, 5, 110, 40);
   fill(255);
   text("Speed: " + ship.speed, 20, 20);
   text("Fuel: " + ship.fuel, 20, 40);
