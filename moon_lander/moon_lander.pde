@@ -5,16 +5,21 @@ final float PROP = 0.05;
 
 final int MOON_HEIGHT = 30;
 
-final int SCREEN_HEIGHT = 800;
-final int SCREEN_WIDTH = 1000;
+final int LANDING_PLATFORM_HEIGHT = 60;
+final int LANDING_PLATFORM_WIDTH = 100;
+
+float platformLeft = 0;
 
 Ship ship;
 
 boolean[] keys = new boolean[4];
 
 void setup() {
-  ship = new Ship(new PVector(0, 0), 10);
   size(1000, 800);
+  
+  ship = new Ship(new PVector(0, -(height / 2)), 10);
+  
+  platformLeft = random(0, width - LANDING_PLATFORM_WIDTH);
 }
 
 void draw() {
@@ -31,9 +36,15 @@ void model() {
 // drawing stuff
 void view() {
   background(0);
+  
+  fill(128, 128, 128);
+  rect(platformLeft, height - (2 * MOON_HEIGHT) + 10, LANDING_PLATFORM_WIDTH, LANDING_PLATFORM_HEIGHT);
+  
   fill(255);
-  rect(0, SCREEN_HEIGHT - MOON_HEIGHT, SCREEN_WIDTH, MOON_HEIGHT);
-  translate(width/2, height/2);
+  arc(width / 2, height, width, MOON_HEIGHT, PI, PI * 2, OPEN);
+
+  translate(width / 2, height / 2);
+  
   ship.draw();
 }
 
@@ -105,7 +116,7 @@ class Ship {
    * display the ship on screen
    */
   void draw() {
-    if (pt[1].y >= (SCREEN_HEIGHT / 2 - MOON_HEIGHT) || pt[2].y >= (SCREEN_HEIGHT / 2 - MOON_HEIGHT)) {
+    if (pt[1].y >= ((height / 2 - MOON_HEIGHT) - LANDING_PLATFORM_HEIGHT) || pt[2].y >= ((height / 2 - MOON_HEIGHT) - LANDING_PLATFORM_HEIGHT)) {
       fill(255);
       text("You win!", 10, 30);
     } else {
