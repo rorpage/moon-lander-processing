@@ -87,10 +87,10 @@ class MoonLander {
   void view() {
     background(0);
     
+    landingPlatform.draw();
+    
     fill(255);
     arc(width / 2, height, width, MOON_HEIGHT, PI, PI * 2, OPEN);
-    
-    landingPlatform.draw();
     
     if (ship.status == 0) {
       ship.draw();
