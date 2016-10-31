@@ -11,7 +11,7 @@ class I2CMasterService{
 	  String message = "";
 	  for(int i = 0; i < inByte.length; i++)
 	  {
-	    message += (char)inByte[0];
+	    message += (char)inByte[i];
 	  }
 	  return message;
 	}
