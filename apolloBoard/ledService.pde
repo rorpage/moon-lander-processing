@@ -9,7 +9,7 @@ class LedService{
 
 	//Turn led number on through i2c line
 	void on(int ledNumber, String rgbColor){
-	  println("Turning LED "+ledNumber+":"+rgbColor+" on"); //<>//
+	  println("Turning LED "+ledNumber+":"+rgbColor+" on"); //<>// //<>//
 	  String message = "LED"+"01"+ utility.padTwoDigits(ledNumber)+rgbColor;
 	  //Form must be LED0101RD (LED)(State)(Position)(Color)
 	  i2cService.sendMessageToSlave(slaveOneAddress,message);

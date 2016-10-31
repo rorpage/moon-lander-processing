@@ -26,9 +26,12 @@ void setup(){
   ledService = new LedService(i2cMasterService, utility);
   buttonService = new ButtonService(i2cMasterService, utility);
   sevenSegmentDisplayService = new SevenSegmentDisplayService(i2cMasterService, utility);
-  
+
   //soundService = new SoundService(this);
+  //soundService.playBooster();
   //soundService.playDeployChutes();
+  //soundService.playTelmu();
+  //soundService.playWasteManagement();
 }
 
 void draw(){  

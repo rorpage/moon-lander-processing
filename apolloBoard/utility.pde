@@ -6,7 +6,7 @@ class Utility{
 	String padTwoDigits(int numberToConvert)
 	{
 	  String returnNumber ="";
-	  if(numberToConvert < 10) //<>// //<>//
+	  if(numberToConvert < 10) //<>// //<>// //<>//
 	  {
 	    returnNumber = "0"+str(numberToConvert);
 	  }
@@ -19,7 +19,7 @@ class Utility{
 	String padFourDigits(int numberToConvert)
 	{
 		String returnNumber = "";
-		if(numberToConvert < 10) //<>//
+		if(numberToConvert < 10) //<>// //<>//
 		{
 		  returnNumber = "000"+str(numberToConvert);
 		}

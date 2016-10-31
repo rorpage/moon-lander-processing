@@ -19,7 +19,7 @@ class SevenSegmentDisplayService{
   	String message = "SEG";
   	message += utility.padTwoDigits(displayNum);
   	message += utility.padFourDigits(value);
-	println("Sending Message: "+message+" Address: "+arduino2Address+" on"); //<>//
+	println("Sending Message: "+message+" Address: "+arduino2Address+" on"); //<>// //<>//
 
   	i2cService.sendMessageToSlave(arduino2Address,message);
   	String recievedMessage = i2cService.readMessageFromSlave(9);
