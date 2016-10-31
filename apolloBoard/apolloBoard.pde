@@ -5,6 +5,7 @@ Utility utility;
 LedService ledService;
 ButtonService buttonService;
 SevenSegmentDisplayService sevenSegmentDisplayService;
+SoundService soundService;
 
 //Defining LED Colors
 String green = "GR";
@@ -22,18 +23,19 @@ void setup(){
   printArray(I2C.list());
   i2cMasterService = new I2CMasterService(i2c);
   utility = new Utility();
-  ledService = new LedService(i2cMasterService,utility);
-  buttonService = new ButtonService(i2cMasterService,utility);
+  ledService = new LedService(i2cMasterService, utility);
+  buttonService = new ButtonService(i2cMasterService, utility);
   sevenSegmentDisplayService = new SevenSegmentDisplayService(i2cMasterService, utility);
-
-
+  
+  //soundService = new SoundService(this);
+  //soundService.playDeployChutes();
 }
 
 void draw(){  
 }
 
 void testFunction(){
-  if(startVar ==1){
+  if(startVar ==1){ //<>//
       turnOffLeds(); //<>//
       startVar = 0;
   }
