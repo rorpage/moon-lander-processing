@@ -1,9 +1,9 @@
-import processing.sound.*;
+import ddf.minim.*;
 
 class SoundService {
   PApplet parent;
   
-  final String SOUND_EFFECTS_FOLDER = "/sound_effects";
+  final String SOUND_EFFECTS_FOLDER = "sound_effects";
   final String LAUNCH_FOLDER = SOUND_EFFECTS_FOLDER + "/launch";
   
   final String[] launchEffects = new String[15];
@@ -94,7 +94,9 @@ class SoundService {
   }
   
   private void playLaunchEffect(int index) {
-    new SoundFile(parent, LAUNCH_FOLDER + "/" + launchEffects[index]).play();
+    Minim minim = new Minim(parent);
+    AudioPlayer ap = minim.loadFile(LAUNCH_FOLDER + "/" + launchEffects[index]);
+    ap.play();
   }
   
   // Sound Effects
@@ -127,6 +129,8 @@ class SoundService {
   }
   
   private void playSoundEffect(String filename) {
-    new SoundFile(parent, SOUND_EFFECTS_FOLDER + "/" + filename).play();
+    Minim minim = new Minim(parent);
+    AudioPlayer ap = minim.loadFile(SOUND_EFFECTS_FOLDER + "/" + filename);
+    ap.play();
   }
 }

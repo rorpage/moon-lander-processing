@@ -28,7 +28,7 @@ class ButtonService{
 
 	int[] convertStringToButtonStatesArray(String buttonByteString){
 		for(int i = 0; i < numberButtons; i++){
-			buttonStates[i] = int(buttonByteString.substring(i*2,i+2));
+			buttonStates[i] = int(buttonByteString.substring(i * 2, (i * 2) + 2));
 		}
 		println("ButtonStateArray");
 		printArray(buttonStates);
