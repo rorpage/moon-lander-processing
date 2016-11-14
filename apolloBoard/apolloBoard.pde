@@ -112,9 +112,11 @@ void draw(){
     if (fiveState == GPIO.LOW) {
       fiveState = GPIO.HIGH;
       soundService.playWasteManagement();
+      ledService.on(14, "000128000");
       delay(soundDelay);
     } else {
       fiveState = GPIO.LOW;
+      ledService.on(14, "128000000");
     }
       
   }//
@@ -170,7 +172,7 @@ void turnOffLeds(){
 }
 
 void turnOnLeds(){
-  for (int i = 2; i < 11; i++) {
+  for (int i = 2; i < 16; i++) {
     String colorValue = "000000050";
     ledService.on(i, colorValue);
   }
