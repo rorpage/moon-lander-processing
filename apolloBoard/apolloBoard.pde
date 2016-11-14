@@ -36,7 +36,6 @@ boolean[] buttonStates = new boolean[numberButtons];
 
 void setup(){
   i2c = new I2C(I2C.list()[0]);
-  printArray(I2C.list());
   i2cMasterService = new I2CMasterService(i2c);
   utility = new Utility();
   ledService = new LedService(i2cMasterService, utility);
@@ -72,7 +71,7 @@ void draw(){
     
   //  delay(500);
   //}
-  println(GPIO.digitalRead(10));
+
    if(GPIO.digitalRead(10) == GPIO.LOW) {
      println("10 Pressed");
     if (tenState == GPIO.LOW) {
@@ -171,29 +170,10 @@ void turnOffLeds(){
 }
 
 void turnOnLeds(){
-  //ledService.on(1,str(int(random(255255255))));
-  //delay(ledDelay);
   for (int i = 2; i < 11; i++) {
-    ledService.on(i, str(000128000));
+    String colorValue = "000000050";
+    ledService.on(i, colorValue);
   }
-  //ledService.on(2,str(int(random(255255255))));
-  //delay(ledDelay);
-  //ledService.on(3,str(int(random(255255255))));
-  //delay(ledDelay);
-  //ledService.on(4,str(int(random(255255255))));  
-  //delay(ledDelay);
-  //ledService.on(5,str(int(random(255255255))));
-  //delay(ledDelay);
-  //  ledService.on(6,str(int(random(255255255))));
-  //  delay(ledDelay);
-  //  ledService.on(7,str(int(random(255255255))));
-  //  delay(ledDelay);
-  //  ledService.on(8,str(int(random(255255255))));
-  //  delay(ledDelay);
-  //  ledService.on(9,str(int(random(255255255))));
-  //  delay(ledDelay);
-  //  ledService.on(10,str(int(random(255255255))));
-  //  delay(ledDelay);
 }
 
 void keyReleased() {
